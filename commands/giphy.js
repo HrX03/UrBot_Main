@@ -7,8 +7,8 @@ var term = args.join(' ');
         let content =  JSON.parse(body)
         let item = Math.floor(Math.random() * 10)
         let gif = content.data[item].images.fixed_height.url
-        message.channel.send(`This gif was requested by: ${message.author.tag}\nSearch term: ${term}\nLink to gif: ${gif}`)
-        console.log(`This gif was requested by: ${message.author.tag}\nSearch term: ${term}\nLink to gif: ${gif}`);
+        message.channel.send(`This gif was requested by: ${message.author.tag}\nSearch term: ${args.join(' ')}\nLink to gif: ${gif}`)
+        console.log(`This gif was requested by: ${message.author.tag}\nSearch term: ${args.join(' ')}\nLink to gif: ${gif}`);
      }
   })
 }

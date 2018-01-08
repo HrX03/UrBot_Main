@@ -1,10 +1,5 @@
-const Discord = require("discord.js")
+  const Discord = require("discord.js")
 
-const YTDL = require('ytdl-core');
-const nodeopus = require('node-opus');
-const ffmpeg = require('ffmpeg');
-const fetchGifs = require('fetch-gifs');
-const request = require('request');
 const fs = require("fs");
 const http = require('http');
 const express = require('express');
@@ -20,16 +15,6 @@ setInterval(() => {
 }, 280000);
 
 const config = require("./config.json");
-
-function play(connection, message, args) {
-  var server = servers[message.guild.id];
-  server.dispatcher = connection.playStream(YTDL(args[0]), {filter: "audioonly"});
-  server.queue.shift();
-  server.dispatcher.on("end", function() {
-    if (server.queue[0]) play(connection, message);
-    else connection.disconnect();
-  });
-}
 
 var PREFIX = config.prefix;
 
@@ -49,7 +34,7 @@ fs.readdir("./events/", (err, files) => {
 
 bot.on('message', async message => {
   
-  bot.user.setPresence({game: {name: 'type u!help', type: 0}});  
+  bot.user.setPresence({game: {name: `online with ${bot.guilds.reduce((p, c) => p + c.memberCount, 0).toLocaleString()} people!`, type: 0}});  
   
 if (!message.content.startsWith(PREFIX) || message.author.bot) return;
 
@@ -61,6 +46,7 @@ const command = args.shift().toLowerCase();
     commandFile.run(bot, message, args);
   } catch (err) {
     console.error(err);
+    message.reply(`ERROR! HERE'S THE LOG: " ${err} "`)
   }
   
 });
